@@ -1,4 +1,3 @@
-
 while True:
     request = input("Type add, show, edit, complete or exit: ")
     request = request.strip()
@@ -56,6 +55,8 @@ while True:
             break
 
 print("bye")
+
+#just testing to see if this works
 
 
     
