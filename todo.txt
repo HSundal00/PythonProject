@@ -1,0 +1,4 @@
+clean
+sleep
+play
+fix
