@@ -2,3 +2,4 @@ clean
 sleep
 play
 fix
+enable
