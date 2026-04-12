@@ -2,56 +2,51 @@ while True:
     request = input("Type add, show, edit, complete or exit: ")
     request = request.strip()
 
-    match request:
-        case 'add':
-            todo = input("Enter a todo: ") + "\n"
+    if 'add' in request:
+        todo = request[4:]
 
-            #This creates a list within a txt file, 'r' is to read the file
-            with open('todo.txt', 'r') as file:
-                todos = file.readlines()
+        with open('todo.txt', 'r') as file:
+            todos = file.readlines()
 
-            todos.append(todo)
+        todos.append(todo + '\n')
 
-            #Calls the same file and write within it, 'w' to write in the file
-            with open('todo.txt', 'w') as file:
-                file.writelines(todos)
+        with open('todo.txt', 'w') as file:
+            file.writelines(todos)
 
-        case 'show':
-            with open('todo.txt', 'r') as file:
-                todos = file.readlines()
+    elif 'show' in request:
+        with open('todo.txt', 'r') as file:
+            todos = file.readlines()
 
+        for index, item in enumerate(todos):
+            item = item.strip('\n')
+            row = f"{index+1}-{item}"
+            print(row)
 
-            # Removes extra new lines
-            new_todos = [item.strip('\n') for item in todos]
+    elif 'edit' in request:
+        number = int(request[5:])
+        number = number - 1
+        
+        with open('todo.txt', 'r') as file:
+            todos = file.readlines()
 
-            for index, item in enumerate(new_todos):
-                row = f"{index+1}-{item}"
-                print(row)
+        new_todos = input("Enter a new item: ")
+        todos[number] = new_todos + "\n"
 
-        case 'edit':
-            number = int(input("Number of the todo to edit: "))
-            number = number - 1
-            
-            with open('todo.txt', 'r') as file:
-                todos = file.readlines()
+        with open('todo.txt', 'w') as file:
+            file.writelines(todos)
 
-            new_todos = input("Enter a new item: ")
-            todos[number] = new_todos + "\n"
+    elif 'complete' in request:
+        number = int(request[9:])
+        
+        with open('todo.txt', 'r') as file:
+            todos = file.readlines()
 
-            with open('todo.txt', 'w') as file:
-                file.writelines(todos)
+        todos.pop(number - 1)
 
-        case 'complete':
-            number = int(input("Number of the todo to complete: "))
-            with open('todo.txt', 'r') as file:
-                todos = file.readlines()
+        with open('todo.txt', 'w') as file:
+            file.writelines(todos)
 
-            todos.pop(number - 1)
-
-            with open('todo.txt', 'w') as file:
-                file.writelines(todos)
-
-        case 'exit':
+    elif 'exit' in request:
             break
 
 print("bye")
