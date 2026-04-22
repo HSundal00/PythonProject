@@ -1,2 +1,4 @@
-something
-watermelon
+Add a new player
+Fix the drawer
+Buy a camera
+add a new member
