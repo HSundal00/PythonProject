@@ -2,3 +2,5 @@ Add a new player
 Fix the drawer
 Buy a camera
 add a new member
+Make soup
+Make pizza
