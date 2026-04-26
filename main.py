@@ -1,7 +1,11 @@
-def get_todos():
-    with open('todo.txt', 'r') as file:
+def get_todos(filepath):
+    with open(filepath, 'r') as file:
         todos_local = file.readlines()    
     return todos_local
+
+def write_todos(filepath, todos_arg):
+    with open(filepath, 'w') as file:
+        file.writelines(todos_arg)
 
 
 while True:
@@ -11,16 +15,15 @@ while True:
     if request.startswith('add'):
         todo = request[4:]
 
-        todos = get_todos()
+        todos = get_todos("todo.txt")
 
         todos.append(todo + '\n')
 
-        with open('todo.txt', 'w') as file:
-            file.writelines(todos)
+        write_todos("todo.txt", todos)
 
     elif request.startswith('show'):
 
-        todos = get_todos()
+        todos = get_todos("todo.txt")
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
@@ -32,13 +35,13 @@ while True:
             number = int(request[5:])
             number = number - 1
             
-            todos = get_todos()
+            todos = get_todos("todo.txt")
 
             new_todos = input("Enter a new item: ")
             todos[number] = new_todos + "\n"
 
-            with open('todo.txt', 'w') as file:
-                file.writelines(todos)
+            write_todos("todo.txt", todos)
+
         except ValueError:
             print("Your command is not valid")
             continue
@@ -47,12 +50,12 @@ while True:
         try:
             number = int(request[9:])
             
-            todos = get_todos()
+            todos = get_todos("todo.txt")
 
             todos.pop(number - 1)
 
-            with open('todo.txt', 'w') as file:
-                file.writelines(todos)
+            write_todos("todo.txt", todos)
+
         except IndexError:
             print("Wrong number")
             continue
